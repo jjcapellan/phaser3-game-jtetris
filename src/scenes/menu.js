@@ -58,7 +58,7 @@ export default class Menu extends Phaser.Scene {
         const centerX = originX + 406 / 2;
         const originYbt = originY + 300;
 
-        this.add.image(centerX, originY + 140, 'atlas-menu', 'logoblack');
+        this.add.image(centerX, originY + 140, 'atlas-menu', 'logowhite');
 
         // Button play
         this.bt_play = this.add.image(centerX, originYbt, 'atlas-menu', 'btplay')
