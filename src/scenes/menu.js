@@ -6,10 +6,7 @@ export default class Menu extends Phaser.Scene {
     }
 
     create() {
-        // White background
-        /*this.add.image(118, 184, 'atlas', 'white')
-          .setOrigin(0)
-          .setDisplaySize(410, 794);*/
+        // Background
         this.add.image(100, 20, 'atlas', 'background').setOrigin(0);
 
         // Top score
