@@ -35,7 +35,7 @@ export default class Table {
             blendMode: 'screen',
             scale: { start: 1.2, end: 0 },
             speed: { min: -400, max: 400 },
-            angle:{min: -180, max: 180},
+            angle: { min: -180, max: 180 },
             frequency: -1,
             quantity: 80
         });
@@ -150,6 +150,7 @@ export default class Table {
         if (linesCompleted == 0) return 0;
 
         let score = 0;
+        // info: https://tetris.fandom.com/wiki/Scoring
         switch (linesCompleted) {
             case 1:
                 return (this.level + 1) * 40;
@@ -178,9 +179,9 @@ export default class Table {
     explodeAll() {
         this.particlesEmitter.emitZone = null;
 
-        this.particlesEmitter.setPosition(this.scene.game.config.width/2, 550);
+        this.particlesEmitter.setPosition(this.scene.game.config.width / 2, 550);
         this.particlesEmitter.setFrame(['p1', 'p2', 'p3', 'p4', 'p5'], true, 100);
-        
+
         this.scene.music_gameover.play();
         this.scene.music_gameover.on('complete', () => {
             this.initAlphaArray();
