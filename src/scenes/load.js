@@ -27,6 +27,7 @@ export default class Load extends Phaser.Scene {
         this.load.audio('knock', 'assets/audio/fx/knock.mp3');
         this.load.audio('line', 'assets/audio/fx/explode1cc0.mp3');
         this.load.audio('go', 'assets/audio/fx/go.wav');
+        this.load.audio('score4', 'assets/audio/fx/score4.wav');
         this.load.audio('levelup', 'assets/audio/fx/levelup.mp3');
 
 

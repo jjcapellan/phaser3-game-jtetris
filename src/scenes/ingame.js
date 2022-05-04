@@ -49,6 +49,8 @@ export default class InGame extends Phaser.Scene {
         this.snd_spin = this.sound.add('spin').setVolume(0.8);
         this.snd_down = this.sound.add('knock').setVolume(0.4);
         this.snd_levelup = this.sound.add('levelup');
+        this.snd_score4 = this.sound.add('score4');
+        
         // Music
         this.music_gameover = this.sound.add('gameover');
         this.music_ingame = this.sound.add('ingame', { volume: 0.4, loop: true });
