@@ -17,6 +17,9 @@ export default class Menu extends Phaser.Scene {
         this.add.image(0, 0, 'atlas', 'table')
           .setOrigin(0);
 
+        // Play sound
+        this.snd_play = this.sound.add('go');
+
         // Menu contents
         this.createContents();
     
@@ -61,6 +64,7 @@ export default class Menu extends Phaser.Scene {
         this.bt_play = this.add.image(centerX, originYbt, 'atlas-menu', 'btplay')
           .setInteractive();
         this.bt_play.on('pointerdown', () => {
+            this.snd_play.play();
           this.scene.start('inGame');
         });
     
