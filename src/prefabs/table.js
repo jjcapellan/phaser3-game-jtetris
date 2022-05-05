@@ -161,9 +161,8 @@ export default class Table {
             case 3:
                 return (this.level + 1) * 300;
 
-            case 4:
-                this.scene.cameras.main.shake(200, 0.02);
-                this.scene.snd_score4.play();
+            case 4:                
+                this.scene.customEmitter.emit('x4Lines');
                 return (this.level + 1) * 1200;
 
             default:
