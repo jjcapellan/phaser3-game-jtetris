@@ -72,14 +72,14 @@ export default class Menu extends Phaser.Scene {
         this.bt_controls = this.add.image(centerX, originYbt + 1 * 130, 'atlas-menu', 'btcontrols')
             .setInteractive();
         this.bt_controls.on('pointerdown', () => {
-            this.menuCamera.setSpeed(2 * 1300);
+            this.menuCamera.moveToSnap(2);
         });
 
         //Button credits
         this.bt_credits = this.add.image(centerX, originYbt + 2 * 130, 'atlas-menu', 'btcredits')
             .setInteractive();
         this.bt_credits.on('pointerdown', () => {
-            this.menuCamera.setSpeed(1235);
+            this.menuCamera.moveToSnap(1);
         });
 
     }
