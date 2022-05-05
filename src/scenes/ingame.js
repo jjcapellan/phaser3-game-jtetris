@@ -50,6 +50,7 @@ export default class InGame extends Phaser.Scene {
         this.snd_down = this.sound.add('knock').setVolume(0.4);
         this.snd_levelup = this.sound.add('levelup');
         this.snd_score4 = this.sound.add('score4');
+        this.snd_move = this.sound.add('move').setVolume(0.4);
         
         // Music
         this.music_gameover = this.sound.add('gameover');

@@ -79,6 +79,8 @@ export default class Controls {
         this.piece.x--;
         if (this.piece.checkCollision()) {
             this.piece.x++;
+        } else {
+            this.scene.snd_move.play();
         }
         this.piece.print();
         this.table.update();
@@ -90,6 +92,8 @@ export default class Controls {
         this.piece.x++;
         if (this.piece.checkCollision()) {
             this.piece.x--;
+        } else {
+            this.scene.snd_move.play();
         }
         this.piece.print();
         this.table.update();
