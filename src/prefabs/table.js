@@ -162,6 +162,7 @@ export default class Table {
                 return (this.level + 1) * 300;
 
             case 4:
+                this.scene.cameras.main.shake(200, 0.02);
                 this.scene.snd_score4.play();
                 return (this.level + 1) * 1200;
 
