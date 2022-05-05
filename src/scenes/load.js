@@ -16,6 +16,7 @@ export default class Load extends Phaser.Scene {
         // Images
         this.load.atlas('atlas', 'assets/imgs/tetris1080.png', 'assets/imgs/jtetris.json');
         this.load.image('mask', 'assets/imgs/mask.png');
+        this.load.image('highscore', 'assets/imgs/highscore.png');
 
         // Music
         this.load.audio('transition', 'assets/audio/music/transition.mp3');

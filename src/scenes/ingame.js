@@ -94,6 +94,7 @@ export default class InGame extends Phaser.Scene {
         customEmitter.on(customEvents.GAME_OVER, this.onGameOver, this);
         customEmitter.on(customEvents.EXPLODE_ALL, this.onExplodeAll, this);
         customEmitter.on(customEvents.X4_LINES, this.onX4Lines, this);
+        customEmitter.on(customEvents.NEW_RECORD, this.onNewRecord, this);
 
         this.timeCounter = 0;
 
@@ -126,9 +127,14 @@ export default class InGame extends Phaser.Scene {
         this.ui_gameover_score = this.add.text(330, 580, '', { fontSize: 48, align: 'center', fontStyle: 'bold' })
             .setOrigin(0.5)
             .setAlpha(0);
-        this.ui_gameover_click = this.add.text(330, 650, 'click to continue', { fontSize: 24, align: 'center' })
+        this.ui_gameover_click = this.add.text(330, 900, 'click to continue', { fontSize: 24, align: 'center' })
             .setOrigin(0.5)
             .setAlpha(0);
+        this.ui_higscore = this.add.image(330, 740, 'highscore')
+            .setScale(0.9)
+            .setAngle(-20)
+            .setAlpha(0.5)
+            .setVisible(false);
         this.gameOverMask = this.add.image(130, 194, 'mask')
             .setOrigin(0)
             .setAlpha(0)
@@ -224,6 +230,10 @@ export default class InGame extends Phaser.Scene {
         this.tween_ui.play();
         let gravity = GRAVITY_LEVELS[this.table.level];
         this.stepDelay = gravity ? gravity * MILLISECONDS_PER_FRAME : 1;
+    }
+
+    onNewRecord(){
+        
     }
 
     onPieceDown() {
