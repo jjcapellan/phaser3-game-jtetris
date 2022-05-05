@@ -27,17 +27,28 @@ export default class InGame extends Phaser.Scene {
 
     create() {
 
+        // Emitter
         this.customEmitter = new Phaser.Events.EventEmitter();
         const customEmitter = this.customEmitter;
 
+        // Background
         this.add.image(100, 20, 'atlas', 'background').setOrigin(0);
 
+        // UI
         this.createUi();
 
+        // Transparent layer for effects
+        this.ui_mask = this.add.image(214, 12, 'atlas', 'white')
+            .setOrigin(0)
+            .setDisplaySize(220, 172)
+            .setAlpha(0);
+
+        // Board
         this.add.image(0, 0, 'atlas', 'table').setOrigin(0);
 
         this.table = new Table(this);
 
+        // Piece (tetromino)
         this.piece = new Piece(this, this.pieceQueue.current, this.table.colorsArray);
         this.piece.print();
         this.table.update();
@@ -57,6 +68,14 @@ export default class InGame extends Phaser.Scene {
         this.music_gameover = this.sound.add('gameover');
         this.music_ingame = this.sound.add('ingame', { volume: 0.4, loop: true });
         this.music_ingame.play();
+
+        // Tweens
+        this.tween_ui = this.tweens.add({
+            targets: this.ui_mask,
+            alpha: 0.6,
+            yoyo: true,
+            duration: 600
+        });
 
         //// Events
         const customEvents = {
@@ -202,6 +221,7 @@ export default class InGame extends Phaser.Scene {
     onLevelUp(level) {
         this.ui_level.setText(level);
         this.snd_levelup.play();
+        this.tween_ui.play();
         let gravity = GRAVITY_LEVELS[this.table.level];
         this.stepDelay = gravity ? gravity * MILLISECONDS_PER_FRAME : 1;
     }
