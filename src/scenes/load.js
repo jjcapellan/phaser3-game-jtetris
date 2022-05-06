@@ -19,7 +19,6 @@ export default class Load extends Phaser.Scene {
         this.load.image('highscore', 'assets/imgs/highscore.png');
 
         // Music
-        this.load.audio('transition', 'assets/audio/music/transition.mp3');
         this.load.audio('ingame', 'assets/audio/music/ingame.mp3');
         this.load.audio('gameover', 'assets/audio/music/gameover.mp3');
 
