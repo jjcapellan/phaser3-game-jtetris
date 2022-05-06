@@ -183,9 +183,14 @@ export default class InGame extends Phaser.Scene {
         }
         h.setCookie(COOKIE_LAST, this.score, 365);
 
+        this.input.keyboard.removeAllKeys();
+
         this.music_ingame.stop();
 
-        this.table.explodeAll(); // Async function. Emits 'explodeall' on end.
+        this.music_gameover.play();
+        this.music_gameover.on('complete', () => {
+            this.table.explodeAll(); // emits event explodeall when finished
+        });
     }
 
     onExplodeAll() {

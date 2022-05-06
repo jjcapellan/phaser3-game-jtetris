@@ -179,21 +179,31 @@ export default class Table {
 
     explodeAll() {
         this.particlesEmitter.emitZone = null;
-
-        this.particlesEmitter.setPosition(this.scene.game.config.width / 2, 550);
-        this.particlesEmitter.setFrame(['p1', 'p2', 'p3', 'p4', 'p5'], true, 100);
-
-        this.scene.music_gameover.play();
-        this.scene.music_gameover.on('complete', () => {
-            this.initAlphaArray();
-            this.update();
-            this.scene.snd_line.play();
-            this.particlesEmitter.explode();
-            this.scene.customEmitter.emit('explodeall');
+        const activeCells = [];
+        this.cellsArray.forEach((row) => {
+            for(let i = 0; i<row.length; i++){
+                if(row[i].visible){
+                    activeCells.push(row[i]);
+                }
+            }
         });
-
-
-
+        let cellsToExplode = activeCells.length;
+        activeCells.forEach((cell) => {
+            const delay = Math.random() * 2000;
+            setTimeout(() => {
+                cell.setVisible(false);
+                this.particlesEmitter.setPosition(cell.x, cell.y);
+                this.particlesEmitter.explode();
+                this.scene.snd_line.play();
+                this.scene.cameras.main.shake(50, 0.005);
+                cellsToExplode--;
+                if(cellsToExplode < 1){
+                    this.initAlphaArray();
+                    this.update();
+                    this.scene.customEmitter.emit('explodeall');
+                }
+            }, delay);
+        });
     }
 
     deleteCompletes() {
