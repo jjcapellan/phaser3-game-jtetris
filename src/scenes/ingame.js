@@ -81,7 +81,6 @@ export default class InGame extends Phaser.Scene {
         const customEvents = {
             'PIECE_TOUCH_DOWN': 'pieceTouchDown',
             'GAME_OVER': 'gameover',
-            'NEW_RECORD': 'newrecord',
             'X4_LINES': 'x4Lines',
             'LEVEL_UP': 'levelup',
             'NEXT_PIECE': 'nextPiece',
@@ -94,7 +93,6 @@ export default class InGame extends Phaser.Scene {
         customEmitter.on(customEvents.GAME_OVER, this.onGameOver, this);
         customEmitter.on(customEvents.EXPLODE_ALL, this.onExplodeAll, this);
         customEmitter.on(customEvents.X4_LINES, this.onX4Lines, this);
-        customEmitter.on(customEvents.NEW_RECORD, this.onNewRecord, this);
 
         this.timeCounter = 0;
 
@@ -260,10 +258,6 @@ export default class InGame extends Phaser.Scene {
         this.tween_ui.play();
         let gravity = GRAVITY_LEVELS[this.table.level];
         this.stepDelay = gravity ? gravity * MILLISECONDS_PER_FRAME : 1;
-    }
-
-    onNewRecord() {
-
     }
 
     onPieceDown() {
