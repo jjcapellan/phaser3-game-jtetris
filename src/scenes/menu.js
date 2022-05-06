@@ -1,5 +1,5 @@
 import { getCookie } from "../prefabs/helpers.js";
-import { COOKIE_LAST, COOKIE_TOP } from "../prefabs/constants.js";
+import { COOKIE_TOP } from "../prefabs/constants.js";
 export default class Menu extends Phaser.Scene {
     constructor() {
         super('menu');
