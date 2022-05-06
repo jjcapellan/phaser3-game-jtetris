@@ -120,16 +120,16 @@ export default class InGame extends Phaser.Scene {
         // UI GAME OVER
         this.ui_gameover_1 = this.add.text(330, 446, 'GAME OVER', { fontSize: 52, align: 'center', fontStyle: 'bold' })
             .setOrigin(0.5)
-            .setAlpha(0);
+            .setVisible(false);
         this.ui_gameover_2 = this.add.text(330, 510, '-SCORE-', { fontSize: 48, align: 'center' })
             .setOrigin(0.5)
-            .setAlpha(0);
+            .setVisible(false);
         this.ui_gameover_score = this.add.text(330, 580, '', { fontSize: 48, align: 'center', fontStyle: 'bold' })
             .setOrigin(0.5)
-            .setAlpha(0);
+            .setVisible(false);
         this.ui_gameover_click = this.add.text(330, 900, 'click to continue', { fontSize: 24, align: 'center' })
             .setOrigin(0.5)
-            .setAlpha(0);
+            .setVisible(false);
         this.ui_higscore = this.add.image(330, 740, 'highscore')
             .setScale(0.9)
             .setAngle(-20)
@@ -174,14 +174,6 @@ export default class InGame extends Phaser.Scene {
 
     onGameOver() {
         this.isGameOver = true;
-        // Check scores
-        let topScore = h.getCookie(COOKIE_TOP);
-        topScore = topScore ? parseInt(topScore) : 0;
-        if (this.score > topScore) {
-            h.setCookie(COOKIE_TOP, this.score, 365);
-            this.customEmitter.emit('newrecord', this.score);
-        }
-        h.setCookie(COOKIE_LAST, this.score, 365);
 
         this.input.keyboard.removeAllKeys();
 
@@ -194,19 +186,52 @@ export default class InGame extends Phaser.Scene {
     }
 
     onExplodeAll() {
-        this.time.removeAllEvents();
 
         // Print game over
-        this.ui_gameover_1.setAlpha(1);
-        this.ui_gameover_2.setAlpha(1);
+        this.ui_gameover_1.setVisible(true);
+        this.ui_gameover_2.setVisible(true);
         this.ui_gameover_score.setText(this.ui_score.text);
-        this.ui_gameover_score.setAlpha(1);
-        this.ui_gameover_click.setAlpha(1);
+        this.ui_gameover_score.setVisible(true);
+
         this.gameOverMask.setAlpha(0.6);
 
-        this.input.on('pointerdown', () => {
-            this.scene.start('menu');
+        this.snd_levelup.play();
+
+        let t = this;
+        this.tweens.add({
+            targets: [t.ui_gameover_1, t.ui_gameover_2, t.ui_gameover_score],
+            scale: 1.2,
+            yoyo: true,
+            duration: 100,
+            delay: 0
         });
+
+        // Check scores
+        let topScore = h.getCookie(COOKIE_TOP);
+        topScore = topScore ? parseInt(topScore) : 0;
+        if (this.score > topScore) {
+            h.setCookie(COOKIE_TOP, this.score, 365);
+            setTimeout(() => {
+                this.ui_higscore.setVisible(true);
+                this.snd_line.play();
+                this.cameras.main.shake(60, 0.03);
+                setTimeout(() => {
+                    this.snd_score4.play();
+                    this.ui_gameover_click.setVisible(true);
+                    this.input.on('pointerdown', () => {
+                        this.scene.start('menu');
+                    });
+                }, 500);
+            }, 1500);
+            this.customEmitter.emit('newrecord', this.score);
+        } else {
+            this.ui_gameover_click.setVisible(true);
+            this.input.on('pointerdown', () => {
+                this.scene.start('menu');
+            });
+        }
+        h.setCookie(COOKIE_LAST, this.score, 365);
+
     }
 
     onTableStep() {
@@ -237,8 +262,8 @@ export default class InGame extends Phaser.Scene {
         this.stepDelay = gravity ? gravity * MILLISECONDS_PER_FRAME : 1;
     }
 
-    onNewRecord(){
-        
+    onNewRecord() {
+
     }
 
     onPieceDown() {
