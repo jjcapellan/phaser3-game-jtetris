@@ -12,6 +12,8 @@ import {
     COOKIE_TOP
 } from '../prefabs/constants.js';
 
+
+
 export default class InGame extends Phaser.Scene {
     constructor() {
         super('inGame');
@@ -98,6 +100,8 @@ export default class InGame extends Phaser.Scene {
 
     }
 
+
+
     createUi() {
         // UI SCORE
         this.add.text(324, 45, 'score', { fontSize: 24, align: 'center' }).setOrigin(0.5);
@@ -139,21 +143,29 @@ export default class InGame extends Phaser.Scene {
             .setBlendMode(Phaser.BlendModes.MULTIPLY);
     }
 
+
+
     initPieceQueue() {
         this.pieceQueue.current = Phaser.Math.Between(1, 7);
         this.pieceQueue.next = Phaser.Math.Between(1, 7);
     }
+
+
 
     updatePieceQueue() {
         this.pieceQueue.current = this.pieceQueue.next;
         this.pieceQueue.next = Phaser.Math.Between(1, 7);
     }
 
+
+
     updateScore(score) {
         this.score += score;
         let str_score = this.score.toString().padStart(6, '0');
         this.ui_score.setText(str_score);
     }
+
+
 
     update(_time, dt) {
         if (this.isGameOver) {
@@ -167,6 +179,8 @@ export default class InGame extends Phaser.Scene {
         }
         this.controls.update(dt);
     }
+
+
 
     //// Event handlers
 
@@ -182,6 +196,8 @@ export default class InGame extends Phaser.Scene {
             this.table.explodeAll(); // emits event explodeall when finished
         });
     }
+
+
 
     onExplodeAll() {
 
@@ -232,6 +248,8 @@ export default class InGame extends Phaser.Scene {
 
     }
 
+
+
     onTableStep() {
         // Delete piece from table
         this.piece.clear();
@@ -252,6 +270,8 @@ export default class InGame extends Phaser.Scene {
         this.table.update();
     }
 
+
+
     onLevelUp(level) {
         this.ui_level.setText(level);
         this.snd_levelup.play();
@@ -259,6 +279,8 @@ export default class InGame extends Phaser.Scene {
         let gravity = GRAVITY_LEVELS[this.table.level];
         this.stepDelay = gravity ? gravity * MILLISECONDS_PER_FRAME : 1;
     }
+
+
 
     onPieceDown() {
         this.controls.initDown();
@@ -283,6 +305,8 @@ export default class InGame extends Phaser.Scene {
         // Inits the piece
         this.piece.init(this.pieceQueue.current);
     }
+
+
 
     onX4Lines() {
         this.cameras.main.shake(200, 0.02);
