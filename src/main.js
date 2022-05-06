@@ -9,7 +9,7 @@ function runGame() {
         width: 648,
         height: 1080,
         parent: 'game',
-        backgroundColor: 0,//0xe9efec,
+        backgroundColor: 0,
         scale: {
             mode: Phaser.Scale.FIT,
             autoCenter: Phaser.Scale.CENTER_BOTH
