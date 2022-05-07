@@ -23,6 +23,7 @@ export default class Load extends Phaser.Scene {
         this.load.audio('gameover', 'assets/audio/music/gameover.mp3');
 
         // Sound FX
+        this.load.audio('button', 'assets/audio/fx/button.wav');
         this.load.audio('explosion', 'assets/audio/fx/explosion.mp3');
         this.load.audio('move', 'assets/audio/fx/move.wav');
         this.load.audio('spin', 'assets/audio/fx/spin.wav');

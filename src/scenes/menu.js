@@ -17,31 +17,17 @@ export default class Menu extends Phaser.Scene {
         this.add.image(0, 0, 'atlas', 'table')
             .setOrigin(0);
 
-        // Play sound
+        // Sounds
         this.snd_play = this.sound.add('go');
+        this.snd_button = this.sound.add('button');
 
         // Menu contents
         this.createContents();
 
-        const configCamera = {
-            x: 121,
-            y: 195,
-            width: 406,
-            height: 770,
-            contentBounds: {
-                x: 2000,
-                y: 2000,
-                length: 3 * 406
-            },
-            drag: 0.95,
-            snap: {
-                enable: true,
-                padding: 406
-            },
-            horizontal: true
-        }
-
-        this.menuCamera = new ScrollingCamera(this, configCamera);
+        this.menuCamera = this.cameras.add(121, 195, 406, 770, false)
+            .setOrigin(0)
+            .setBounds(2000, 2000, 3 * 406, 770)
+            .setScroll(2000, 2000);
     }
 
     createContents() {
@@ -72,14 +58,16 @@ export default class Menu extends Phaser.Scene {
         this.bt_controls = this.add.image(centerX, originYbt + 1 * 130, 'atlas-menu', 'btcontrols')
             .setInteractive();
         this.bt_controls.on('pointerdown', () => {
-            this.menuCamera.moveToSnap(2);
+            this.snd_button.play();
+            this.menuCamera.pan(2000 + 406 * 2 + 406 / 2, 2000, 300 * 2, 'Bounce');
         });
 
         //Button credits
         this.bt_credits = this.add.image(centerX, originYbt + 2 * 130, 'atlas-menu', 'btcredits')
             .setInteractive();
         this.bt_credits.on('pointerdown', () => {
-            this.menuCamera.moveToSnap(1);
+            this.snd_button.play();
+            this.menuCamera.pan(2000 + 406 * 1 + 406 / 2, 2000, 300, 'Bounce');
         });
 
     }
@@ -93,7 +81,8 @@ export default class Menu extends Phaser.Scene {
             .setInteractive();
 
         this.bt_back_credits.on('pointerdown', () => {
-            this.menuCamera.setSpeed(-2000);
+            this.snd_button.play();
+            this.menuCamera.pan(2000, 2000, 300, 'Bounce');
         });
 
     }
@@ -107,7 +96,8 @@ export default class Menu extends Phaser.Scene {
             .setInteractive();
 
         this.bt_back_controls.on('pointerdown', () => {
-            this.menuCamera.setSpeed(-2 * 2000);
+            this.snd_button.play();
+            this.menuCamera.pan(2000, 2000, 300, 'Bounce');
         });
     }
 }
